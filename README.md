@@ -6,14 +6,30 @@
 
 ---
 
-<em> **Heads up:** This project is still a work in progress. </em>
+> **Note:** This project is still a work in progress.
 
 ---
 
-### What is this?
+## About this Project
 
-- **Goal:** Get the HACK computer running on a real FPGA dev board (DE10-Lite).
-- **Language:** Verilog HDL
+This repository aims to implement the HACK computer, a simple yet powerful educational computer architecture introduced in the Nand2Tetris course. The goal is to design the HACK CPU and memory system in Verilog and deploy it on an FPGA, providing a hands-on experience with digital design and computer architecture.
+
+## What is the HACK Computer?
+
+The HACK computer is a 16-bit, von Neumann architecture designed for educational purposes. It features a minimal instruction set and a straightforward hardware design, making it ideal for learning the fundamentals of computer systems from the ground up.
+
+---
+
+## Project Structure
+
+| Folder         | Description                                                                                   |
+|----------------|----------------------------------------------------------------------------------------------|
+| **rtl**        | Verilog HDL source code for the HACK computer.                                               |
+| **testbenches**| Testbenches for verifying the RTL code.                                                      |
+| **docs**       | Step-by-step documentation of the project.                                                   |
+| **scripts**    | Useful scripts (e.g., `run_testbench.py` for running testbenches from the command line).     |
+| **test_fpga**  | Simple implementations of blocks for FPGA testing.                                           |
+
 
 ---
 

@@ -23,9 +23,9 @@ module ALU(x, y, zx, nx, zy, ny, f, no, out, zr, ng);
         output zr, ng;
 
         // wires declaration
-        wire [15:0] outZx, outZxN, outNx;
-        wire [15:0] outZy, outZyN, outNy;
-        wire [15:0] outAdd, outAnd;
+        wire [15:0] outZx, outZxN;
+        wire [15:0] outZy, outZyN;
+        wire [15:0] outAdd;
         wire [15:0] outF;
 
         // zero x if zx is set
@@ -38,17 +38,15 @@ module ALU(x, y, zx, nx, zy, ny, f, no, out, zr, ng);
         // negate y if ny is set
         Mux16 muxZyN(.a(outZy), .b(~outZy), .sel(ny), .out(outZyN));
 
-        // perform addition if f is 1
+        // f: ADD or AND
         Add16 add(.a(outZxN), .b(outZyN), .out(outAdd));
-        // select function output
         Mux16 muxF(.a(outZyN & outZxN), .b(outAdd), .sel(f), .out(outF));
 
         // negate output if no is set
         Mux16 muxFN(.a(outF), .b(~outF), .sel(no), .out(out));
 
-        // set zero flag if output is zero
+        // Flags
         assign zr = (out == 16'b0) ? 1'b1 : 1'b0;
-        // set negative flag if output is negative
         assign ng = out[15];
 
 endmodule
