@@ -1,0 +1,34 @@
+`ifndef ADDRESSDECODER_V
+`define ADDRESSDECODER_V
+
+module AddressDecoder(
+    input [15:0] address,
+    input writeM,
+    output reg ram_enable,
+    output reg leds_enable,
+    output reg readSelect // 0 for RAM, 1 for LEDs
+);
+
+    always @(*) begin
+        // Default values
+        readSelect = 1'b0;
+        ram_enable = 1'b0;
+        leds_enable = 1'b0;
+
+        // Determine readSelect based on address
+        casez (address)
+            16'b00??????????????: readSelect = 1'b0;      // 0x0000 - 0x3FFF
+            16'b010000000000????: readSelect = 1'b1;     // 0x4000 - 0x400F
+            default: ; // Defaults already set above
+        endcase
+
+        if (writeM) begin
+            casez (address)
+                16'b00??????????????: ram_enable = 1'b1;      // 0x0000 - 0x3FFF
+                16'b010000000000????: leds_enable = 1'b1;     // 0x4000 - 0x400F
+                default: ; // Defaults already set above
+            endcase
+        end
+    end
+endmodule
+`endif

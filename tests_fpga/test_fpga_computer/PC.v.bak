@@ -7,7 +7,7 @@ module PC(
     output reg [15:0] out
 );
 
-    always @(posedge clk or posedge reset) begin
+    always @(posedge clk) begin
         if (reset) out <= 16'b0;
         else if (load) out <= in;
         else if (inc) out <= out + 1;

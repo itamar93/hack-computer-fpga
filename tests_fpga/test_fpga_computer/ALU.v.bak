@@ -1,7 +1,7 @@
 `ifndef ALU_V
 `define ALU_V
 
-`include "Mux16.v"
+`include "../gates/Mux16.v"
 `include "Add16.v"
 
 // This module implements a 16-bit ALU

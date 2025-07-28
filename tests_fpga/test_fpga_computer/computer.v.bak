@@ -1,0 +1,80 @@
+`ifndef COMPUTER_V
+`define COMPUTER_V
+
+`include "CPU.v"
+`include "ROM.v"
+`include "RAM.v"
+`include "AddressDecoder.v"
+`include "LEDs.v"
+`include "Mux16.v"
+
+module Computer(
+    input clk,
+    input reset
+);
+    
+    // internal signals
+    wire [15:0] instruction;
+    wire [15:0] memIn;
+    wire [15:0] memOut;
+    wire [15:0] memAddress;
+    wire memWrite, ram_enable, leds_enable;
+    wire [15:0] pc;
+    wire [15:0] ramOut;
+    wire [15:0] ledsOut;
+
+
+    // ROM
+    ROM rom (
+        .clk(clk),
+        .address(romAddress),
+        .out(instruction)
+    );
+
+    // CPU
+    CPU cpu (
+        .clk(clk),
+        .reset(reset),
+        .instruction(instruction),
+        .inM(memOut),
+        .outM(memIn),
+        .addressM(memAddress),
+        .writeM(memWrite),
+        .pc(pc)
+    );
+
+    // Address Decoder 
+    AddressDecoder addrDecoder (
+        .address(memAddress),
+        .writeM(memWrite),
+        .ram_enable(ram_enable),
+        .leds_enable(leds_enable)
+    );
+
+    // RAM
+    RAM ram (
+        .clk(clk),
+        .address(memAddress),
+        .in(memIn),
+        .load(ram_enable),
+        .out(ramOut)
+    );
+
+    // LEDs
+    LEDs leds (
+        .clk(clk),
+        .in(memIn),
+        .load(leds_enable),
+        .out(ledsOut)  
+    );
+
+    // Memory Output Mux
+    Mux16 memMux (
+        .a(ramOut),
+        .b(ledsOut),
+        .sel(leds_enable),
+        .out(memOut)
+    );
+
+endmodule
+`endif 

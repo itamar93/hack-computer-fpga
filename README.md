@@ -37,3 +37,5 @@ The HACK computer is a 16-bit, von Neumann architecture designed for educational
 
 - [SetUp Environment](docs/0_SetUp_Environment/README.md)
 - [Arithmetics](docs/1_Arithmetic/README.md)
+- [Memory](docs/2_Memory/README.md)
+- [CPU](docs/3_Cpu/README.md)

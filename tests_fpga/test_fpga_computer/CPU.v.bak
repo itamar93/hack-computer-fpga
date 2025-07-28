@@ -1,10 +1,10 @@
 `ifndef CPU_V
 `define CPU_V
 
-`include "Mux16.v"
-`include "ALU.v"
-`include "PC.v"
-`include "Register.v"
+`include "../gates/Mux16.v"
+`include "../arithmetic/ALU.v"
+`include "../memory/PC.v"
+`include "../memory/Register.v"
 `include "InstructionDecoder.v"
 `include "JmpControlUnit.v"
 

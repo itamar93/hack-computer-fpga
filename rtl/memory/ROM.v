@@ -10,7 +10,7 @@ module ROM # (parameter DEPTH = 15, WIDTH = 16)(
     reg [WIDTH-1:0] memory [2**DEPTH-1:0];
 
     initial begin
-        $readmemh("rom_data.hex", memory);
+        $readmemb("../rtl/memory/rom_data2.bin", memory);
     end
 
     assign out = memory[address];
