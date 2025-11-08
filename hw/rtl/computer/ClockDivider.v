@@ -2,7 +2,7 @@
 `define CLOCK_DIVIDER_V
 
 module ClockDivider #(
-    parameter DIV = 2_000_000  // 50M / 2 = 1 Hz
+    parameter DIV = 25_000_000  // 50M / 2 = 1 Hz
 )(
     input clk_in,
     input reset,

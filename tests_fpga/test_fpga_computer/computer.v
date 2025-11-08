@@ -1,13 +1,6 @@
 `ifndef COMPUTER_V
 `define COMPUTER_V
 
-`include "CPU.v"
-`include "ROM.v"
-`include "RAM.v"
-`include "AddressDecoder.v"
-`include "LEDs.v"
-`include "Mux16.v"
-
 module computer(
     input clk,
     input reset,
@@ -22,15 +15,19 @@ module computer(
     wire memWrite, clk_out;
     wire [15:0] pc;
     wire [15:0] ramOut;
-	 wire [15:0] outMemMux1;
-	 wire [1:0] slaveSel;
-	 
-	 // Clock Divider
-	 ClockDivider inner_clk (
-			.clk_in(clk),
-			.reset(reset),
-			.clk_out(clk_out)
-	 );
+    wire [15:0] outMemMux1;
+    wire [2:0] slaveSel;
+    wire slowClk;
+
+    // Clock Divider
+    ClockDivider inner_clk (
+        .clk_in(clk),
+        .reset(reset),
+        .clk_out(slowClk)
+    );
+
+    // Clock Output Mux
+    assign clk_out = 1'b1 ? clk : slowClk;
 
 
     // ROM
@@ -63,7 +60,7 @@ module computer(
         .clock(clk_out),
         .address(memAddress[13:0]),
         .data(memIn),
-        .wren(~slaveSel & memWrite),
+        .wren(slaveSel[0] & memWrite),
         .q(ramOut)
     );
 
@@ -71,8 +68,8 @@ module computer(
     LEDs leds (
         .clk(clk_out),
         .in(memIn),
-		  .reset(reset),
-        .load(slaveSel & memWrite),
+		.reset(reset),
+        .load(slaveSel[1] & memWrite),
         .out(ledsOut)  
     );
 
@@ -80,14 +77,14 @@ module computer(
     Mux16 memMux1 (
         .a(ramOut),
         .b(ledsOut),
-        .sel(slaveSel[0]),
+        .sel(slaveSel[1]),
         .out(outMemMux1)
     );
 	 
     Mux16 memMux2 (
         .a(outMemMux1),
         .b(16'h0000),
-        .sel(slaveSel[1]),
+        .sel(slaveSel[2]),
         .out(memOut)
     );
 

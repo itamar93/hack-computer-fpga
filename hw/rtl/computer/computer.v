@@ -1,21 +1,23 @@
 `ifndef COMPUTER_V
 `define COMPUTER_V
 
-`include "CPU.v"
-`include "ROM.v"
-`include "RAM.v"
+`include "../cpu/CPU.v"
+`include "../memory/ROM.v"
+`include "../memory/RAM.v"
 `include "AddressDecoder.v"
-`include "LEDs.v"
-`include "Mux16.v"
+`include "../peripherals/LEDs.v"
+`include "../gates/Mux16.v"
+`include "ClockDivider.v"
 
 module computer(
     input clk,
     input reset,
-	output [15:0] ledsOut
+	output [15:0] ledsOut,
+    output [15:0] instruction
 );
     
     // internal signals
-    wire [15:0] instruction;
+    //wire [15:0] instruction;
     wire [15:0] memIn;
     wire [15:0] memOut;
     wire [15:0] memAddress;
@@ -24,19 +26,22 @@ module computer(
     wire [15:0] ramOut;
     wire [15:0] outMemMux1;
     wire [2:0] slaveSel;
+    wire slowClk;
 
     // Clock Divider
     ClockDivider inner_clk (
         .clk_in(clk),
         .reset(reset),
-        .passThrough(1'b1), // Set to 1 to pass through the
-        .clk_out(clk_out)
+        .clk_out(slowClk)
     );
+
+    // Clock Output Mux
+    assign clk_out = 1'b1 ? clk : slowClk;
 
 
     // ROM
     ROM rom (
-        .clock(clk_out),
+        .clk(clk_out),
         .address(pc),
         .out(instruction)
     );
@@ -61,7 +66,7 @@ module computer(
 
     // RAM
     RAM ram (
-        .clock(clk_out),
+        .clk(clk_out),
         .address(memAddress[13:0]),
         .in(memIn),
         .load(~slaveSel[0] & memWrite),
