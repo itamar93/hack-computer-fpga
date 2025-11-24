@@ -64,12 +64,12 @@ module CPU(
 
     // PC (Program Counter)
     PC programCounter (
-        .clk(clk),
-        .load(pcLoad),
-        .inc(pcInc),
-        .reset(reset),
-        .in(addressM),
-        .out(pc)
+        .i_CLK(clk),
+        .i_Load(pcLoad),
+        .i_Inc(pcInc),
+        .i_RESET_n(reset),
+        .i_Address(addressM),
+        .o_Address(pc)
     );
 
     // == Fetch-Decode stage - end ==
