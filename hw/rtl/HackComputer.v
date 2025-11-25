@@ -50,7 +50,7 @@ module HackComputer(
         .i_Data(w_Mem_In),
         .i_Write_EN(w_Write_Mem),
         .i_RESET_n(i_RESET_n),
-        .o_Data(w_Mem_Out)
+        .o_Data(w_Mem_Out),
         .o_LEDS(o_LEDS)
     );
 
