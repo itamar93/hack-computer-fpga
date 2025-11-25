@@ -39,11 +39,11 @@ module ALU(
         assign w_OutF = i_F ? w_OutZyN & w_OutZxN : w_OutAdd;
 
         // negate output if no is set
-        assign o_Out = i_NO ? ~w_OutF : w_OutF;
+        assign o_ALU = i_NO ? ~w_OutF : w_OutF;
 
         // Flags
-        assign o_ZR = (o_Out == 16'b0) ? 1'b1 : 1'b0;
-        assign o_NG = o_Out[15];
+        assign o_ZR = (o_ALU == 16'b0) ? 1'b1 : 1'b0;
+        assign o_NG = o_ALU[15];
 
 endmodule
 `endif
