@@ -13,12 +13,4 @@ The design of the ALU can be implemented using the following sub-blocks:
 
 ![ALU Internal Design](../img/arithmetics/inside_implementation_ALU.png)
 
-For FPGA efficiency, I did not build the ALU in a purely structural manner as taught in the Nand2Tetris course. Instead, I used a mixed design of structural and behavioral models. In this implementation, I created the 'Mux16' and 'Add16' blocks.
-
-Below is a snippet from the ALU testbench output, highlighting the first test vector. The corresponding line is also marked in the truth table for reference:
-
-![ALU testbench](../img/arithmetics/ALU_testbench.png)
-
-![ALU Truth Table first line marked](../img/arithmetics/ALU_Truth_Table_0.png)
-
 [Back to Table Of Contents](./../../README.md)
