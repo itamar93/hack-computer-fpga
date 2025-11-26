@@ -36,7 +36,7 @@ module ALU(
 
         // f: ADD or AND
         Add16 add(.i_A(w_OutZxN), .i_B(w_OutZyN), .o_Add16(w_OutAdd));
-        assign w_OutF = i_F ? w_OutZyN & w_OutZxN : w_OutAdd;
+        assign w_OutF = i_F ? w_OutAdd : w_OutZyN & w_OutZxN;
 
         // negate output if no is set
         assign o_ALU = i_NO ? ~w_OutF : w_OutF;
