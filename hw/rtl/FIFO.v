@@ -29,10 +29,10 @@ module FIFO #(
     // body
     always @(posedge i_CLK or negedge i_RESET_n) begin
         if (!i_RESET_n) begin
-            r_Write_Ptr <= '0;
-            r_Read_Ptr  <= '0;
-            r_Count     <= '0;
-            o_Data      <= '0;
+            r_Write_Ptr <= 0;
+            r_Read_Ptr  <= 0;
+            r_Count     <= 0;
+            o_Data      <= 0;
         end else begin
             // WRITE
             if (i_Write_EN && !o_Full) begin

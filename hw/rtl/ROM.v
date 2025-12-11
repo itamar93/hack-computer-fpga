@@ -16,7 +16,7 @@ module ROM #(
 
     // Initialize ROM with data
     initial begin
-        $readmemb(`ROM_DATA_PATH, r_Memory);
+        $readmemh(`ROM_DATA_PATH, r_Memory);
     end
 
     always @(posedge i_CLK) begin
