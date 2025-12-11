@@ -46,6 +46,7 @@ module Memory(
     // ========================================
     RAM ram (
         .i_CLK(i_CLK),
+        .i_RESET_n(i_RESET_n),
         .i_Data(i_Data),
         .i_Address(i_Address[13:0]),
         .i_Write_EN(w_RAM_Select & i_Write_EN),
