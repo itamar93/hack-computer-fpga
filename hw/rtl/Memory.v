@@ -30,8 +30,8 @@ module Memory(
     
     assign w_RAM_Select         = (i_Address[15:14] == 2'b00);  // 0x0000 - 0x3FFF
     assign w_LED_Select         = (i_Address == 16'h4000);      // 0x4000
-    assign w_UART_Data_Select   = (i_Address == 16'h4001);      // 0x4001
-    assign w_UART_Status_Select = (i_Address == 16'h4002);      // 0x4002
+    assign w_UART_Status_Select = (i_Address == 16'h4001);      // 0x4001
+    assign w_UART_Data_Select   = (i_Address == 16'h4002);      // 0x4002
     
     // ========================================
     // Peripheral Data Buses

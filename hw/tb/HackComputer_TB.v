@@ -6,7 +6,7 @@ module HackComputer_TB;
     // Parameters – ADJUST CLKS_PER_BIT TO MATCH YOUR BAUD GENERATOR
     // ------------------------------------------------------------------------
     localparam integer CLK_PERIOD   = 20;   
-    localparam integer CLKS_PER_BIT = 50_000_000 / (16*9600);   // <-- Replace with your real value
+    localparam integer CLKS_PER_BIT = 50_000_000 / 9600;   // <-- Replace with your real value
 
     // ------------------------------------------------------------------------
     // DUT interface
@@ -68,7 +68,7 @@ module HackComputer_TB;
         // Let the Hack boot and reach "wait for UART" point
         // --------------------------------------------------------------------
         // You can tune this depending on your ROM program length
-        repeat (2000) @(posedge r_CLK);
+        repeat (200) @(posedge r_CLK);
 
         // --------------------------------------------------------------------
         // Send some UART bytes as if coming from PC
