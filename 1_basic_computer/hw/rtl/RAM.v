@@ -9,7 +9,7 @@ module RAM # (
     input [WIDTH-1:0] i_Data,
     input [$clog2(DEPTH)-1:0] i_Address,
     input i_Write_EN,
-    output reg [WIDTH-1:0] o_Data
+    output [WIDTH-1:0] o_Data
 );
 
     // Memory array
@@ -19,8 +19,10 @@ module RAM # (
         if (i_Write_EN) begin
             r_Data[i_Address] <= i_Data;
         end
-        o_Data <= r_Data[i_Address];
     end
+
+    // async read
+    assign o_Data = r_Data[i_Address];
 
 endmodule
 `endif

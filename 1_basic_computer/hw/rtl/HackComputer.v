@@ -16,7 +16,6 @@ module HackComputer(
 
     // ROM
     ROM rom (
-        .i_CLK(i_CLK),
         .i_Address(w_PC),
         .o_Instruction(w_Instruction)
     );
